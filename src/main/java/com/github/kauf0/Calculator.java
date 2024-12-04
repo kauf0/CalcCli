@@ -1,0 +1,7 @@
+package com.github.kauf0;
+
+public class Calculator {
+    public static void main(String[] args) {
+        System.out.println("Here shall be the calculator Cli code");
+    }
+}
