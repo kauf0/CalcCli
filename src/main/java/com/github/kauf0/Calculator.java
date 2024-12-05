@@ -15,22 +15,29 @@ public class Calculator {
         // Greet the user and give them instructions on usage
         System.out.println("CalcCli\n" +
                 "Input ':q' to exit, or ':c' to copy output.");
-        // Create the scanner and read input Expression string
-        Scanner scanner = new Scanner(System.in);
-        Expression input = new Expression(scanner.nextLine());
-        System.out.println(input); // this is for debugging purposes only
+        String input = "";
 
-        // Check the input for quit command and, if
-        // not present, pass the string into parser
-        if (input.equals(":q")) {
-            System.exit(0);
-        } else {
-            try {
-                EvaluationValue result = input.evaluate();
-                System.out.println(result.getNumberValue());
-            } catch (Exception e) {
-                e.printStackTrace(System.out);
+        do {
+            // Create the scanner and read input Expression string
+            Scanner scanner = new Scanner(System.in);
+            input = scanner.nextLine();
+            //System.out.println(input); // this was for debugging purposes only
+
+            if (input.equals(":q")){
+                System.exit(0);
+            } else if (input.contains(":c")){
+                System.out.println("this should later be used to copy string");
+            } else if (input.matches("[a-zA-Z_;:\"'`~!@#$%{}\\[\\]]+") || input.isBlank()){
+                System.out.println("Please, provide proper input.");
+            } else {
+                try {
+                    Expression inputExp = new Expression(input);
+                    EvaluationValue result = inputExp.evaluate();
+                    System.out.println(result.getNumberValue());
+                } catch (Exception e) {
+                    e.printStackTrace(System.out);
+                }
             }
-        }
+        } while (!input.equals(":q"));
     }
 }
