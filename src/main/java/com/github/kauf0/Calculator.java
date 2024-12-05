@@ -1,12 +1,8 @@
 package com.github.kauf0;
 
-import com.ezylang.evalex.EvaluationException;
 import com.ezylang.evalex.Expression;
 import com.ezylang.evalex.data.EvaluationValue;
-import com.ezylang.evalex.parser.ParseException;
 
-import javax.script.ScriptException;
-import java.beans.PropertyEditorSupport;
 import java.util.Scanner;
 
 public class Calculator {
