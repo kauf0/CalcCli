@@ -11,7 +11,8 @@ public class Calculator {
     public static void main(String[] args) {
         // Greet the user and give them instructions on usage
         System.out.println("CalcCli\n" +
-                "Input ':q' to exit, or ':c' to copy output.");
+                "Input ':q' to exit.\n" +
+                ":h for list of commands.");
         // Create blank variables to use later
         String input = "";
 
@@ -27,8 +28,22 @@ public class Calculator {
                 case String sInp when sInp.equals(":q") -> {
                     System.exit(0);
                 }
+                case String sInp when sInp.equals(":h") -> {
+                    System.out.println("List of commands:\n" +
+                            "| :q  - Quit\n" +
+                            "| :h  - Prints this message\n" +
+                            "|---------------------------------------------------------------\n" +
+                            "| :c  - Copies both the expression and the result (WIP)\n" +
+                            "| :cr - Copies only the result (WIP)\n" +
+                            "| :ce - Copies only the expression (WIP)\n" +
+                            "|---------------------------------------------------------------\n" +
+                            "| :b  - Prints the result in true Big Decimal (without rounding) (WIP)");
+                }
                 case String sInp when sInp.contains(":c") -> {
                     System.out.println("this should later be used to copy string");
+                }
+                case String sInp when sInp.contains(":b") -> {
+                    System.out.println("this should later be used to print true Big Decimals");
                 }
                 case String sInp when sInp.matches("[a-zA-Z;:\"'`~!@#$%{}\\[\\]]+") || sInp.isBlank() -> {
                     System.out.println("Please, provide proper input.");
