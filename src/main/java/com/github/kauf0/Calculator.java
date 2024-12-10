@@ -26,9 +26,11 @@ public class Calculator {
             // Check for presence of commands and if expression doesn't contain
             // any letters and special symbols
             switch (input) {
+                // QUIT command
                 case String sInp when sInp.equals(":q") -> {
                     System.exit(0);
                 }
+                // HELP command
                 case String sInp when sInp.equals(":h") -> {
                     System.out.println("List of commands:\n" +
                             "| :q  - Quit\n" +
@@ -40,9 +42,11 @@ public class Calculator {
                             "|---------------------------------------------------------------\n" +
                             "| :b  - Prints the result in true Big Decimal (without rounding) (WIP)");
                 }
+                // COPY command
                 case String sInp when sInp.contains(":c") -> {
                     System.out.println("this should later be used to copy string");
                 }
+                // BIG command -- prints true Big Decimal
                 case String sInp when sInp.contains(":b") -> {
                     try {
                         Expression inputExp = new Expression(input);
@@ -52,9 +56,11 @@ public class Calculator {
                         e.printStackTrace(System.out);
                     }
                 }
+                // Check for irrelevant input (letters and special characters)
                 case String sInp when sInp.matches("[a-zA-Z;:\"'`~!@#$%{}\\[\\]]+") || sInp.isBlank() -> {
                     System.out.println("Please, provide proper input.");
                 }
+                // Default expression evaluation (with rounding to 3 numbers after point)
                 default -> {
                     try {
                         MathContext m = new MathContext(3);
