@@ -4,6 +4,7 @@ import com.ezylang.evalex.Expression;
 import com.ezylang.evalex.data.EvaluationValue;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.Scanner;
 
 public class Calculator {
@@ -43,16 +44,23 @@ public class Calculator {
                     System.out.println("this should later be used to copy string");
                 }
                 case String sInp when sInp.contains(":b") -> {
-                    System.out.println("this should later be used to print true Big Decimals");
+                    try {
+                        Expression inputExp = new Expression(input);
+                        EvaluationValue result = inputExp.evaluate();
+                        System.out.println(result.getNumberValue().toPlainString());
+                    } catch (Exception e) {
+                        e.printStackTrace(System.out);
+                    }
                 }
                 case String sInp when sInp.matches("[a-zA-Z;:\"'`~!@#$%{}\\[\\]]+") || sInp.isBlank() -> {
                     System.out.println("Please, provide proper input.");
                 }
                 default -> {
                     try {
+                        MathContext m = new MathContext(3);
                         Expression inputExp = new Expression(input);
                         EvaluationValue result = inputExp.evaluate();
-                        System.out.println(result.getNumberValue().toPlainString());
+                        System.out.println(result.getNumberValue().round(m).toPlainString());
                     } catch (Exception e) {
                         e.printStackTrace(System.out);
                     }
