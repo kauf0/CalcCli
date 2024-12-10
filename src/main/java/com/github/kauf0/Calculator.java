@@ -43,13 +43,14 @@ public class Calculator {
                             "| :b  - Prints the result in true Big Decimal (without rounding) (WIP)");
                 }
                 // COPY command
-                case String sInp when sInp.contains(":c") -> {
+                case String sInp when sInp.endsWith(":c") -> {
                     System.out.println("this should later be used to copy string");
                 }
                 // BIG command -- prints true Big Decimal
-                case String sInp when sInp.contains(":b") -> {
+                case String sInp when sInp.endsWith(":b") -> {
                     try {
-                        Expression inputExp = new Expression(input);
+                        // Cutting off the end of the sentence that contains ":b"
+                        Expression inputExp = new Expression(input.substring(0, input.length() - 2));
                         EvaluationValue result = inputExp.evaluate();
                         System.out.println(result.getNumberValue().toPlainString());
                     } catch (Exception e) {
