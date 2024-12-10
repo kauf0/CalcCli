@@ -3,6 +3,7 @@ package com.github.kauf0;
 import com.ezylang.evalex.Expression;
 import com.ezylang.evalex.data.EvaluationValue;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class Calculator {
@@ -32,7 +33,7 @@ public class Calculator {
                 try {
                     Expression inputExp = new Expression(input);
                     EvaluationValue result = inputExp.evaluate();
-                    System.out.println(result.getNumberValue());
+                    System.out.println(result.getNumberValue().toPlainString());
                 } catch (Exception e) {
                     e.printStackTrace(System.out);
                 }
