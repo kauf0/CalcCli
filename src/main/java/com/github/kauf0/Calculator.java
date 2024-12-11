@@ -3,7 +3,6 @@ package com.github.kauf0;
 import com.ezylang.evalex.Expression;
 import com.ezylang.evalex.data.EvaluationValue;
 
-import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Scanner;
 
@@ -33,6 +32,7 @@ public class Calculator {
                 // HELP command
                 case String sInp when sInp.equals(":h") -> {
                     System.out.println("List of commands:\n" +
+                            "| **These commands should be used at the end of expression**\n" +
                             "| :q  - Quit\n" +
                             "| :h  - Prints this message\n" +
                             "|---------------------------------------------------------------\n" +
@@ -40,11 +40,19 @@ public class Calculator {
                             "| :cr - Copies only the result (WIP)\n" +
                             "| :ce - Copies only the expression (WIP)\n" +
                             "|---------------------------------------------------------------\n" +
-                            "| :b  - Prints the result in true Big Decimal (without rounding) (WIP)");
+                            "| :b  - Prints the result in true Big Decimal (without rounding)");
                 }
                 // COPY command
                 case String sInp when sInp.endsWith(":c") -> {
                     System.out.println("this should later be used to copy string");
+                }
+                // COPY-RESULT command
+                case String sInp when sInp.endsWith(":cr") -> {
+                    System.out.println("this should later be used to copy result string");
+                }
+                // COPY-EXPRESSION command
+                case String sInp when sInp.endsWith(":ce") -> {
+                    System.out.println("this should later be used to copy expression string");
                 }
                 // BIG command -- prints true Big Decimal
                 case String sInp when sInp.endsWith(":b") -> {
