@@ -28,7 +28,6 @@ public class Calculator {
 
             // Check for presence of commands and if expression doesn't contain
             // any letters and special symbols
-            final String inputCommandCutoff = input.substring(0, input.length() - 2);
             switch (input) {
                 // QUIT command
                 case String sInp when sInp.equals(":q") -> {
@@ -53,6 +52,8 @@ public class Calculator {
                     try {
                         MathContext m = new MathContext(3);
                         // Cutting off the end of the sentence that contains ":c"
+                        String inputCommandCutoff = input.substring(0, input.length() - 2);
+
                         Expression inputExp = new Expression(inputCommandCutoff);
 
                         EvaluationValue result = inputExp.evaluate();
@@ -71,7 +72,9 @@ public class Calculator {
                     try {
                         MathContext m = new MathContext(3);
                         // Cutting off the end of the sentence that contains ":cr"
-                        Expression inputExp = new Expression(input.substring(0, input.length() - 3));
+                        String inputCommandCutoff = input.substring(0, input.length() - 3);
+
+                        Expression inputExp = new Expression(inputCommandCutoff);
 
                         EvaluationValue result = inputExp.evaluate();
                         System.out.println(result.getNumberValue().round(m).toPlainString());
@@ -89,13 +92,15 @@ public class Calculator {
                     try {
                         MathContext m = new MathContext(3);
                         // Cutting off the end of the sentence that contains ":c"
-                        Expression inputExp = new Expression(input.substring(0, input.length() - 3));
+                        String inputCommandCutoff = input.substring(0, input.length() - 3);
+
+                        Expression inputExp = new Expression(inputCommandCutoff);
 
                         EvaluationValue result = inputExp.evaluate();
                         System.out.println(result.getNumberValue().round(m).toPlainString());
 
                         // Copies both expression and result
-                        StringSelection stringSelection = new StringSelection(input.substring(0, input.length() -3));
+                        StringSelection stringSelection = new StringSelection(inputCommandCutoff);
                         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                         clipboard.setContents(stringSelection, null);
                     } catch (Exception e) {
@@ -106,7 +111,7 @@ public class Calculator {
                 case String sInp when sInp.endsWith(":b") -> {
                     try {
                         // Cutting off the end of the sentence that contains ":b"
-                        Expression inputExp = new Expression(inputCommandCutoff);
+                        Expression inputExp = new Expression(input.substring(0, input.length() - 2));
 
                         EvaluationValue result = inputExp.evaluate();
                         System.out.println(result.getNumberValue().toPlainString());
