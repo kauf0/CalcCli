@@ -3,6 +3,9 @@ package com.github.kauf0;
 import com.ezylang.evalex.Expression;
 import com.ezylang.evalex.data.EvaluationValue;
 
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.math.MathContext;
 import java.util.Scanner;
 
@@ -36,29 +39,72 @@ public class Calculator {
                             "| :q  - Quit\n" +
                             "| :h  - Prints this message\n" +
                             "|---------------------------------------------------------------\n" +
-                            "| :c  - Copies both the expression and the result (WIP)\n" +
-                            "| :cr - Copies only the result (WIP)\n" +
-                            "| :ce - Copies only the expression (WIP)\n" +
+                            "| :c  - Copies both the expression and the result\n" +
+                            "| :cr - Copies only the result\n" +
+                            "| :ce - Copies only the expression\n" +
                             "|---------------------------------------------------------------\n" +
                             "| :b  - Prints the result in true Big Decimal (without rounding)");
                 }
                 // COPY command
                 case String sInp when sInp.endsWith(":c") -> {
-                    System.out.println("this should later be used to copy string");
+                    try {
+                        MathContext m = new MathContext(3);
+                        // Cutting off the end of the sentence that contains ":c"
+                        Expression inputExp = new Expression(input.substring(0, input.length() - 2));
+
+                        EvaluationValue result = inputExp.evaluate();
+                        System.out.println(result.getNumberValue().round(m).toPlainString());
+
+                        // Copies both expression and result
+                        StringSelection stringSelection = new StringSelection(input.substring(0, input.length() -2) + "\n" + result.getNumberValue().round(m).toPlainString());
+                        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                        clipboard.setContents(stringSelection, null);
+                    } catch (Exception e) {
+                        e.printStackTrace(System.out);
+                    }
                 }
                 // COPY-RESULT command
                 case String sInp when sInp.endsWith(":cr") -> {
-                    System.out.println("this should later be used to copy result string");
+                    try {
+                        MathContext m = new MathContext(3);
+                        // Cutting off the end of the sentence that contains ":cr"
+                        Expression inputExp = new Expression(input.substring(0, input.length() - 3));
+
+                        EvaluationValue result = inputExp.evaluate();
+                        System.out.println(result.getNumberValue().round(m).toPlainString());
+
+                        // Copies both expression and result
+                        StringSelection stringSelection = new StringSelection(result.getNumberValue().round(m).toPlainString());
+                        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                        clipboard.setContents(stringSelection, null);
+                    } catch (Exception e) {
+                        e.printStackTrace(System.out);
+                    }
                 }
                 // COPY-EXPRESSION command
                 case String sInp when sInp.endsWith(":ce") -> {
-                    System.out.println("this should later be used to copy expression string");
+                    try {
+                        MathContext m = new MathContext(3);
+                        // Cutting off the end of the sentence that contains ":c"
+                        Expression inputExp = new Expression(input.substring(0, input.length() - 3));
+
+                        EvaluationValue result = inputExp.evaluate();
+                        System.out.println(result.getNumberValue().round(m).toPlainString());
+
+                        // Copies both expression and result
+                        StringSelection stringSelection = new StringSelection(input.substring(0, input.length() -3));
+                        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                        clipboard.setContents(stringSelection, null);
+                    } catch (Exception e) {
+                        e.printStackTrace(System.out);
+                    }
                 }
                 // BIG command -- prints true Big Decimal
                 case String sInp when sInp.endsWith(":b") -> {
                     try {
                         // Cutting off the end of the sentence that contains ":b"
                         Expression inputExp = new Expression(input.substring(0, input.length() - 2));
+
                         EvaluationValue result = inputExp.evaluate();
                         System.out.println(result.getNumberValue().toPlainString());
                     } catch (Exception e) {
