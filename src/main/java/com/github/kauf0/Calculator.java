@@ -47,66 +47,20 @@ public class Calculator {
                             |---------------------------------------------------------------
                             | :b  - Prints the result in true Big Decimal (without rounding)""");
                 }
+
                 // COPY command
-                case String sInp when sInp.endsWith(":c") -> {
-                    try {
-                        MathContext m = new MathContext(3);
-                        // Cutting off the end of the sentence that contains ":c"
-                        String inputCommandCutoff = input.substring(0, input.length() - 2);
-
-                        Expression inputExp = new Expression(inputCommandCutoff);
-
-                        EvaluationValue result = inputExp.evaluate();
-                        System.out.println(result.getNumberValue().round(m).toPlainString());
-
-                        // Copies both expression and result
-                        StringSelection stringSelection = new StringSelection(inputCommandCutoff + "\n" + result.getNumberValue().round(m).toPlainString());
-                        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                        clipboard.setContents(stringSelection, null);
-                    } catch (Exception e) {
-                        e.printStackTrace(System.out);
-                    }
-                }
+                case String sInp when sInp.endsWith(":c") -> { Copying.copyExpressionAndResult(input); }
                 // COPY-RESULT command
-                case String sInp when sInp.endsWith(":cr") -> {
-                    try {
-                        MathContext m = new MathContext(3);
-                        // Cutting off the end of the sentence that contains ":cr"
-                        String inputCommandCutoff = input.substring(0, input.length() - 3);
-
-                        Expression inputExp = new Expression(inputCommandCutoff);
-
-                        EvaluationValue result = inputExp.evaluate();
-                        System.out.println(result.getNumberValue().round(m).toPlainString());
-
-                        // Copies both expression and result
-                        StringSelection stringSelection = new StringSelection(result.getNumberValue().round(m).toPlainString());
-                        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                        clipboard.setContents(stringSelection, null);
-                    } catch (Exception e) {
-                        e.printStackTrace(System.out);
-                    }
-                }
+                case String sInp when sInp.endsWith(":cr") -> { Copying.copyResultOnly(input); }
                 // COPY-EXPRESSION command
-                case String sInp when sInp.endsWith(":ce") -> {
-                    try {
-                        MathContext m = new MathContext(3);
-                        // Cutting off the end of the sentence that contains ":c"
-                        String inputCommandCutoff = input.substring(0, input.length() - 3);
+                case String sInp when sInp.endsWith(":ce") -> { Copying.copyExpressionOnly(input); }
+                // COPY-BIG command
+                case String sInp when sInp.endsWith(":bc") -> { Copying.copyBigExpressionAndResult(input); }
+                // COPY-BIG-EXPRESSION command
+                case String sInp when sInp.endsWith(":bcr") -> { Copying.copyBigResultOnly(input); }
+                // COPY-BIG-RESULT command
+                case String sInp when sInp.endsWith(":bce") -> { Copying.copyBigExpressionOnly(input); }
 
-                        Expression inputExp = new Expression(inputCommandCutoff);
-
-                        EvaluationValue result = inputExp.evaluate();
-                        System.out.println(result.getNumberValue().round(m).toPlainString());
-
-                        // Copies both expression and result
-                        StringSelection stringSelection = new StringSelection(inputCommandCutoff);
-                        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                        clipboard.setContents(stringSelection, null);
-                    } catch (Exception e) {
-                        e.printStackTrace(System.out);
-                    }
-                }
                 // BIG command -- prints true Big Decimal
                 case String sInp when sInp.endsWith(":b") -> {
                     try {
