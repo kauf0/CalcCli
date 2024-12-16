@@ -33,6 +33,7 @@ public class Calculator {
                 case String sInp when sInp.equals(":q") -> {
                     System.exit(0);
                 }
+
                 // HELP command
                 case String sInp when sInp.equals(":h") -> {
                     Help.help();
@@ -63,10 +64,12 @@ public class Calculator {
                         e.printStackTrace(System.out);
                     }
                 }
-                // Check for irrelevant input (letters and special characters)
+
+                // Check for incorrect input (letters and special characters)
                 case String sInp when sInp.matches("[a-zA-Z;:\"'`~!@#$%{}\\[\\]]+") || sInp.isBlank() -> {
                     System.out.println("Please, provide proper input.");
                 }
+
                 // Default expression evaluation (with rounding to 3 numbers after point)
                 default -> {
                     try {
